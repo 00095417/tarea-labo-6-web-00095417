@@ -1,4 +1,5 @@
 var tienda =[];
+var ventas =[];
 
 window.onload = function(){
     opcion();   
@@ -8,18 +9,44 @@ class Producto{
         this.codigo = codigo;
         this.descripPro = descripPro;
         this.typeProduc = typeProduc;
-        this.precCompra = precCompra;
-        this.precVenta = precVenta;
-        this.stock = stock;
+        this.precCompra = parseInt(precCompra);
+        this.precVenta = parseInt(precVenta);
+        this.stock = parseInt(stock);
     }
     newPrecCompra(newPrec){
-        this.precCompra = newPrec;
+        this.precCompra = parseInt(newPrec);
     }
     newPrecVenta(newPrec){
-        this.precVenta = newPrec;
+        this.precVenta = parseInt(newPrec);
     }
     newStock(stock){
-        this.stock = stock;
+        this.stock = pareInt(stock);
+    }
+}
+class Venta{
+    listaProduc = [];
+    opcion = true;
+    while (opcion) {
+        let p = this.incertarProduct(prompt("Ingrese codigo"));
+        if (p!=false){
+            let counts = parseInt(prompt("Cantidad de producto"));
+            listaProduc.push({p,counts});
+        }
+        switch (prompt("Desea continuar:(s/n)")){
+            case "n":
+                opcion = false;
+        }
+    }
+
+    incertarProduct(codigo){
+        for (let i of tienda){
+            if (i.codigo==codigo){
+                return i;
+            }else{
+                alert("Porducto no encontrado");
+                return false;
+            }
+        }        
     }
 }
 function opcion(){
@@ -58,6 +85,9 @@ function agregarProduc(){
                              prompt("Precio de venta"),
                              prompt("Stock:")));
 }
+function buscarProduc(codigo){
+
+}
 function modificarStock(){
     let buscarCodigo=prompt("Ingrese codigo:");
     for (let i of tienda){
@@ -69,7 +99,7 @@ function modificarStock(){
     }
 }
 function registrarReducir(){
-    console.log("Registrar venta y reducir stock");
+    ventas.push(new Venta());
 }
 function promVentas(){
     console.log("Mostrar promedio de ventas realizadas");
